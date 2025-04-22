@@ -173,8 +173,10 @@
     form.appendChild(summaryInput);
 
     // 延遲送出表單並在新視窗開啟
+    const formData = new FormData(form);
+    const queryString = new URLSearchParams(formData).toString();
+    const formAction = form.action + "?" + queryString;
     setTimeout(() => {
-      const formAction = form.action;
       window.open(formAction, '_blank'); // 在新視窗開啟 formsubmit.co
       form.submit(); // 提交表單
     }, 500);
