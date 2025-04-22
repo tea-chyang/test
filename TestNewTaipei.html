@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>教育考卷自評版</title>
+  <style>
+    body { font-family: sans-serif; max-width: 800px; margin: 2em auto; line-height: 1.8; }
+    h2 { color: #336699; }
+    .question { margin-bottom: 20px; }
+    .result { background: #f0f0f0; padding: 1em; margin-top: 2em; border-radius: 8px; }
+    .correct { color: green; }
+    .wrong { color: red; }
+  </style>
+</head>
+<body>
+  <h2>教育學選擇題小測驗</h2>
+  <form id="quizForm"
+      action="https://formsubmit.co/c59bfd930fedb70ef09ee6d534898eaa"
+      method="POST"
+      onsubmit="return gradeAndSubmit(event)">
+    
+    <div class="question">
+      <label>1. 《學習如何學習》提到的，快速瀏覽章節與圖表的閱讀方式稱為？</label><br>
+      <input type="radio" name="q1" value="A" required> (A) 圖畫導覽<br>
+      <input type="radio" name="q1" value="B"> (B) 閱讀導覽<br>
+      <input type="radio" name="q1" value="C"> (C) 圖畫散步<br>
+      <input type="radio" name="q1" value="D"> (D) 閱讀指引<br>
+    </div>
+
+    <div class="question">
+      <label>2. 下列何者為「負增強陷阱」的例子？</label><br>
+      <input type="radio" name="q2" value="A" required> (A) 孩子整理房間就可看電視<br>
+      <input type="radio" name="q2" value="B"> (B) 搶玩具打架，被面壁<br>
+      <input type="radio" name="q2" value="C"> (C) 孩子摔東西，父母停止責罵<br>
+      <input type="radio" name="q2" value="D"> (D) 打孩子導致模仿暴力<br>
+    </div>
+
+    <div class="question">
+      <label>3. 擴散性教學革新的關鍵機制是？</label><br>
+      <input type="radio" name="q3" value="A" required> (A) 善用非正式團體<br>
+      <input type="radio" name="q3" value="B"> (B) 激起對話交流<br>
+      <input type="radio" name="q3" value="C"> (C) 強化目標承諾<br>
+      <input type="radio" name="q3" value="D"> (D) 衝突協調<br>
+    </div>
+
+    <div class="question">
+      <label>4. 後現代教育行政強調的倫理價值？</label><br>
+      <input type="radio" name="q4" value="A" required> (A) 接受不確定<br>
+      <input type="radio" name="q4" value="B"> (B) 正義<br>
+      <input type="radio" name="q4" value="C"> (C) 利他<br>
+      <input type="radio" name="q4" value="D"> (D) 合作<br>
+    </div>
+
+    <div class="question">
+      <label>5. 秋田喜代美提出的「主體的．對話的深度學習」主張？</label><br>
+      <input type="radio" name="q5" value="A" required> (A) 同質分組，方便對話<br>
+      <input type="radio" name="q5" value="B"> (B) 老師關照、隨時討論<br>
+      <input type="radio" name="q5" value="C"> (C) 學優生主動協助學困生<br>
+      <input type="radio" name="q5" value="D"> (D) 異質分組，對話學習<br>
+    </div>
+
+    <div class="question">
+      <label>6. 哪一位學者提出「完全機構」，意指徹底再社會化的機構？</label><br>
+      <input type="radio" name="q6" value="A" required> (A) 葛夫曼（E. Goffman）<br>
+      <input type="radio" name="q6" value="B"> (B) 顧里（C. H. Cooley）<br>
+      <input type="radio" name="q6" value="C"> (C) 帕森思（T. Parsons）<br>
+      <input type="radio" name="q6" value="D"> (D) 葛芬可（H. Garfinkel）<br>
+    </div>
+    
+    <div class="question">
+      <label>7. 哪種課程發展強調「去大眾化」的意識型態？</label><br>
+      <input type="radio" name="q7" value="A" required> (A) 彈性課程<br>
+      <input type="radio" name="q7" value="B"> (B) 學科課程<br>
+      <input type="radio" name="q7" value="C"> (C) 跨領域課程<br>
+      <input type="radio" name="q7" value="D"> (D) 特色課程<br>
+    </div>
+    
+    <div class="question">
+      <label>8. 下列何者最能描繪學校與家長的夥伴關係？</label><br>
+      <input type="radio" name="q8" value="A" required> (A) 閱聽<br>
+      <input type="radio" name="q8" value="B"> (B) 決策<br>
+      <input type="radio" name="q8" value="C"> (C) 恩惠<br>
+      <input type="radio" name="q8" value="D"> (D) 募款<br>
+    </div>
+    
+    <div class="question">
+      <label>9. 以下哪個觀點不屬於對學習的正確認知？</label><br>
+      <input type="radio" name="q9" value="A" required> (A) 行為主義者強調外在因素造成行為改變<br>
+      <input type="radio" name="q9" value="B"> (B) 認知學習論者強調理解與新知獲得<br>
+      <input type="radio" name="q9" value="C"> (C) 人本主義者重視意志與情感<br>
+      <input type="radio" name="q9" value="D"> (D) 社會學習論者強調主動參與學習<br>
+    </div>
+    
+    <div class="question">
+      <label>10. 哪一項不是理想主義強調的道德教育方式？</label><br>
+      <input type="radio" name="q10" value="A" required> (A) 培養學生義務心<br>
+      <input type="radio" name="q10" value="B"> (B) 教材重生活規範與客觀事例<br>
+      <input type="radio" name="q10" value="C"> (C) 訓導強調自動遵守規律<br>
+      <input type="radio" name="q10" value="D"> (D) 培養永恆道德理想的人格<br>
+    </div>
+
+    <input type="hidden" name="_subject" value="學生完成考卷！">
+    <input type="hidden" name="_cc" value="youremail@gmail.com">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_autoresponse" value="我們已收到你的作答，謝謝！">
+    <button type="submit">送出作答（請按1次即可，等待約5秒）</button>
+  </form>
+
+ 
+
+ 
+
+<div class="result" id="resultBox" style="display: none;"></div>
+
+<script>
+  const correctAnswers = {
+    q1: "C",
+    q2: "C",
+    q3: "A",
+    q4: "A",
+    q6: "D",
+    q7: "C",
+    q8: "C",
+    q9: "A",
+    q10: "A"
+  };
+
+  function gradeAndSubmit(event) {
+    event.preventDefault();
+    const form = document.getElementById("quizForm");
+    let score = 0;
+    let total = Object.keys(correctAnswers).length;
+    let resultHTML = "";
+    let summary = "";
+
+    for (let key in correctAnswers) {
+      const selected = form.elements[key].value;
+      const isCorrect = selected === correctAnswers[key];
+      if (isCorrect) score++;
+      resultHTML += `<p>${key.replace('q', '第')}題：你選的是 (${selected}) → ` +
+                    `<span class="${isCorrect ? 'correct' : 'wrong'}">` +
+                    `${isCorrect ? '✔️ 正確' : `❌ 錯誤，正確答案是 (${correctAnswers[key]})`}` +
+                    `</span></p>`;
+      summary += `${key}: ${selected} (正確：${correctAnswers[key]})\n`;
+    }
+
+    resultHTML = `<h3>🎉 你的得分：${score} / ${total}</h3>` + resultHTML;
+    document.getElementById("resultBox").innerHTML = resultHTML;
+    document.getElementById("resultBox").style.display = 'block';
+
+    // 加入得分到 email 內容
+    const scoreInput = document.createElement("input");
+    scoreInput.type = "hidden";
+    scoreInput.name = "得分";
+    scoreInput.value = `${score} / ${total}`;
+    form.appendChild(scoreInput);
+
+    const summaryInput = document.createElement("input");
+    summaryInput.type = "hidden";
+    summaryInput.name = "詳解";
+    summaryInput.value = summary;
+    form.appendChild(summaryInput);
+
+    // 延遲送出表單（等上面都填完）
+    setTimeout(() => form.submit(), 500);
+    return false; // 防止表單立即提交
+  }
+</script>
