@@ -99,6 +99,12 @@
       <input type="radio" name="q10" value="D"> (D) 培養永恆道德理想的人格<br>
     </div>
 
+    <!-- 新增 Email 輸入欄位 -->
+    <div class="question">
+      <label for="email">請輸入你的 Email 位址：</label><br>
+      <input type="email" id="email" name="email" required placeholder="yourmail@gmail.com">
+    </div>
+
     <input type="hidden" name="_subject" value="學生完成考卷！">
     <input type="hidden" name="_cc" value="youremail@gmail.com">
     <input type="hidden" name="_template" value="table">
@@ -118,6 +124,7 @@
     q2: "C",
     q3: "A",
     q4: "A",
+    q5: "D",
     q6: "D",
     q7: "C",
     q8: "C",
@@ -128,6 +135,10 @@
   function gradeAndSubmit(event) {
     event.preventDefault();
     const form = document.getElementById("quizForm");
+    const emailInput = document.getElementById("email").value; // 取得使用者輸入的 Email
+    const ccField = form.querySelector('input[name="_cc"]'); // 找到隱藏的 _cc 欄位
+    ccField.value = emailInput; // 將使用者的 Email 填入 _cc 欄位
+
     let score = 0;
     let total = Object.keys(correctAnswers).length;
     let resultHTML = "";
@@ -161,8 +172,15 @@
     summaryInput.value = summary;
     form.appendChild(summaryInput);
 
-    // 延遲送出表單（等上面都填完）
-    setTimeout(() => form.submit(), 500);
+    // 延遲送出表單並在新視窗開啟
+    setTimeout(() => {
+      const formAction = form.action;
+      window.open(formAction, '_blank'); // 在新視窗開啟 formsubmit.co
+      form.submit(); // 提交表單
+    }, 500);
+
     return false; // 防止表單立即提交
   }
 </script>
+</body>
+</html>
