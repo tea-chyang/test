@@ -20,6 +20,11 @@
       onsubmit="return gradeAndSubmit(event)">
     
     <div class="question">
+      <label for="email">請輸入你的 Email 位址：</label><br>
+      <input type="email" id="email" name="學生Email" required placeholder="yourmail@gmail.com">
+    </div>
+
+    <div class="question">
       <label>1. 《學習如何學習》提到的，快速瀏覽章節與圖表的閱讀方式稱為？</label><br>
       <input type="radio" name="q1" value="A" required> (A) 圖畫導覽<br>
       <input type="radio" name="q1" value="B"> (B) 閱讀導覽<br>
@@ -99,27 +104,20 @@
       <input type="radio" name="q10" value="D"> (D) 培養永恆道德理想的人格<br>
     </div>
 
-    <!-- 新增 Email 輸入欄位 -->
-    <div class="question">
-      <label for="email">請輸入你的 Email 位址：</label><br>
-      <input type="email" id="email" name="email" required placeholder="yourmail@gmail.com">
-    </div>
-
+    <!-- 額外設定 -->
     <input type="hidden" name="_subject" value="學生完成考卷！">
-    <input type="hidden" name="_cc" value="youremail@gmail.com">
     <input type="hidden" name="_template" value="table">
     <input type="hidden" name="_autoresponse" value="我們已收到你的作答，謝謝！">
-    <button type="submit">送出作答（請按1次即可，等待約5秒）</button>
+    <!-- 可選：自動寄副本給學生（開啟這行會寄一份信給他） -->
+    <input type="hidden" name="_cc" id="ccField" value="">
+
+    <button type="submit">送出作答（請按一次，稍候約 5 秒）</button>
   </form>
 
- 
+  <div class="result" id="resultBox" style="display: none;"></div>
 
- 
-
-<div class="result" id="resultBox" style="display: none;"></div>
-
-<script>
-  const correctAnswers = {
+  <script>
+    const correctAnswers = {
     q1: "C",
     q2: "C",
     q3: "A",
@@ -130,59 +128,58 @@
     q8: "C",
     q9: "A",
     q10: "A"
-  };
+    };
 
-  function gradeAndSubmit(event) {
-    event.preventDefault();
-    const form = document.getElementById("quizForm");
-    const emailInput = document.getElementById("email").value; // 取得使用者輸入的 Email
-    const ccField = form.querySelector('input[name="_cc"]'); // 找到隱藏的 _cc 欄位
-    ccField.value = emailInput; // 將使用者的 Email 填入 _cc 欄位
+    function gradeAndSubmit(event) {
+      event.preventDefault();
+      const form = document.getElementById("quizForm");
+      const emailInput = document.getElementById("email").value;
 
-    let score = 0;
-    let total = Object.keys(correctAnswers).length;
-    let resultHTML = "";
-    let summary = "";
+      let score = 0;
+      let total = Object.keys(correctAnswers).length;
+      let resultHTML = "";
+      let summary = "";
 
-    for (let key in correctAnswers) {
-      const selected = form.elements[key].value;
-      const isCorrect = selected === correctAnswers[key];
-      if (isCorrect) score++;
-      resultHTML += `<p>${key.replace('q', '第')}題：你選的是 (${selected}) → ` +
-                    `<span class="${isCorrect ? 'correct' : 'wrong'}">` +
-                    `${isCorrect ? '✔️ 正確' : `❌ 錯誤，正確答案是 (${correctAnswers[key]})`}` +
-                    `</span></p>`;
-      summary += `${key}: ${selected} (正確：${correctAnswers[key]})\n`;
+      for (let key in correctAnswers) {
+        const selected = form.elements[key].value;
+        const isCorrect = selected === correctAnswers[key];
+        if (isCorrect) score++;
+        resultHTML += `<p>${key.replace('q', '第')}題：你選的是 (${selected}) → ` +
+                      `<span class="${isCorrect ? 'correct' : 'wrong'}">` +
+                      `${isCorrect ? '✔️ 正確' : `❌ 錯誤，正確答案是 (${correctAnswers[key]})`}` +
+                      `</span></p>`;
+        summary += `${key}: ${selected} (正確：${correctAnswers[key]})\n`;
+      }
+
+      // 顯示分數結果
+      resultHTML = `<h3>🎉 你的得分：${score} / ${total}</h3>` + resultHTML;
+      document.getElementById("resultBox").innerHTML = resultHTML;
+      document.getElementById("resultBox").style.display = 'block';
+
+      // 加入得分與詳解到 Email
+      const scoreInput = document.createElement("input");
+      scoreInput.type = "hidden";
+      scoreInput.name = "得分";
+      scoreInput.value = `${score} / ${total}`;
+      form.appendChild(scoreInput);
+
+      const summaryInput = document.createElement("input");
+      summaryInput.type = "hidden";
+      summaryInput.name = "詳解";
+      summaryInput.value = summary;
+      form.appendChild(summaryInput);
+
+      // 若有啟用 _cc，將 email 填入
+      const ccField = document.getElementById("ccField");
+      if (ccField) ccField.value = emailInput;
+
+      // 延遲送出
+      setTimeout(() => {
+        form.submit();
+      }, 500);
+
+      return false;
     }
-
-    resultHTML = `<h3>🎉 你的得分：${score} / ${total}</h3>` + resultHTML;
-    document.getElementById("resultBox").innerHTML = resultHTML;
-    document.getElementById("resultBox").style.display = 'block';
-
-    // 加入得分到 email 內容
-    const scoreInput = document.createElement("input");
-    scoreInput.type = "hidden";
-    scoreInput.name = "得分";
-    scoreInput.value = `${score} / ${total}`;
-    form.appendChild(scoreInput);
-
-    const summaryInput = document.createElement("input");
-    summaryInput.type = "hidden";
-    summaryInput.name = "詳解";
-    summaryInput.value = summary;
-    form.appendChild(summaryInput);
-
-    // 延遲送出表單並在新視窗開啟
-    const formData = new FormData(form);
-    const queryString = new URLSearchParams(formData).toString();
-    const formAction = form.action + "?" + queryString;
-    setTimeout(() => {
-      window.open(formAction, '_blank'); // 在新視窗開啟 formsubmit.co
-      form.submit(); // 提交表單
-    }, 500);
-
-    return false; // 防止表單立即提交
-  }
-</script>
+  </script>
 </body>
 </html>
